@@ -1,0 +1,333 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                */
+/* ------------------------------------------------------------------ */
+
+@layer base {
+  html {
+    background: #08080a;
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    background: #08080a;
+    color: #ece8e1;
+    font-family: var(--font-body), system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    /* `clip` (not `hidden`) so position: sticky keeps working. */
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background: #ffb000;
+    color: #08080a;
+  }
+
+  :focus-visible {
+    outline: 2px solid #ffb000;
+    outline-offset: 3px;
+  }
+
+  html.menu-open {
+    overflow: hidden;
+  }
+
+  address {
+    font-style: normal;
+  }
+}
+
+/* Lenis smooth-scroll recommended rules */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Layout + type scale                                                 */
+/* ------------------------------------------------------------------ */
+
+@layer components {
+  .wrap {
+    width: 100%;
+    max-width: 1760px;
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4.2vw, 4.5rem);
+  }
+
+  /* Display type: one weight, tight, upper-case, very large. */
+  .display {
+    font-family: var(--font-display), 'Arial Narrow', Impact, sans-serif;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 0.84;
+    letter-spacing: -0.012em;
+  }
+
+  .t-hero {
+    font-size: 22vw;
+  }
+  .t-section {
+    font-size: 15.5vw;
+  }
+  .t-final {
+    font-size: 22.5vw;
+  }
+  .t-sub {
+    font-size: clamp(2.6rem, 11vw, 4rem);
+  }
+
+  @media (min-width: 768px) {
+    .t-hero {
+      font-size: min(15.5vw, 21.5svh);
+    }
+    .t-section {
+      font-size: min(13vw, 14rem);
+    }
+    .t-final {
+      font-size: min(17.5vw, 30svh);
+    }
+    .t-sub {
+      font-size: clamp(3rem, 5.6vw, 6rem);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .t-section {
+      font-size: min(11vw, 15rem);
+    }
+  }
+
+  /* Portrait tablets have height to spare, so let the headline use the width. */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .t-hero {
+      font-size: min(18.5vw, 21.5svh);
+    }
+  }
+
+  /* Masked line reveal. The wrapper clips, the inner span travels. */
+  .mask-line {
+    display: block;
+    overflow: hidden;
+    padding-block: 0.07em;
+    margin-block: -0.07em;
+    white-space: nowrap;
+  }
+  .mask-wrap {
+    white-space: normal;
+  }
+  .mask-inner {
+    display: block;
+  }
+
+  .outline-text {
+    color: transparent;
+    -webkit-text-stroke: 1px var(--stroke, rgba(236, 232, 225, 0.5));
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Page-load sequence (pure CSS so it starts at first paint)           */
+/* ------------------------------------------------------------------ */
+
+.hero-line {
+  display: block;
+  transform: translateY(108%);
+  animation: rise 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--d, 0ms);
+}
+.hero-fade {
+  opacity: 0;
+  animation: fade-up 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--d, 0ms);
+}
+.hero-art {
+  opacity: 0;
+  animation: art-in 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: var(--d, 0ms);
+}
+
+@keyframes rise {
+  to {
+    transform: translateY(0);
+  }
+}
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+/* `scale` (not `transform`) so it composes with Tailwind's translate utilities. */
+@keyframes art-in {
+  from {
+    opacity: 0;
+    scale: 1.06;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes sweep {
+  0% {
+    transform: translateX(-140%) skewX(-18deg);
+  }
+  55%,
+  100% {
+    transform: translateX(340%) skewX(-18deg);
+  }
+}
+@keyframes eq {
+  from {
+    transform: scaleY(0.28);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Hero artwork                                                        */
+/* ------------------------------------------------------------------ */
+
+.disc-sheen {
+  background: conic-gradient(
+    from 10deg,
+    #0f1012 0deg,
+    #3a3d44 38deg,
+    #101113 80deg,
+    #4b4e55 130deg,
+    #0f1012 175deg,
+    #383b41 225deg,
+    #101113 270deg,
+    #484b52 320deg,
+    #0f1012 360deg
+  );
+  animation: spin 54s linear infinite;
+  will-change: transform;
+}
+.disc-grooves {
+  background: repeating-radial-gradient(
+    circle at 50% 50%,
+    rgba(0, 0, 0, 0) 0 2px,
+    rgba(0, 0, 0, 0.42) 2px 3px
+  );
+}
+.disc-gloss {
+  background: radial-gradient(
+    circle at 28% 22%,
+    rgba(255, 255, 255, 0.09),
+    transparent 42%
+  );
+}
+.disc-shadow {
+  box-shadow: 0 70px 160px -40px rgba(0, 0, 0, 0.95),
+    inset 0 0 0 1px rgba(236, 232, 225, 0.08);
+}
+
+.slab {
+  background: linear-gradient(145deg, #34373d 0%, #17181b 45%, #0a0a0c 100%);
+  box-shadow: inset 0 0 0 1px rgba(236, 232, 225, 0.14),
+    0 50px 110px -30px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(0, 0, 0, 0.6);
+}
+.slab-sweep {
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(236, 232, 225, 0.12),
+    transparent
+  );
+  animation: sweep 8s ease-in-out infinite;
+}
+
+.eq > span {
+  transform-origin: bottom;
+  animation: eq 2.4s ease-in-out infinite alternate;
+}
+
+/* ------------------------------------------------------------------ */
+/* Marquee, grain, map                                                 */
+/* ------------------------------------------------------------------ */
+
+.marquee-track {
+  animation: marquee 48s linear infinite;
+  will-change: transform;
+}
+.marquee-mask {
+  mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 6%,
+    #000 94%,
+    transparent
+  );
+}
+
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 0.7 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.map-dark {
+  filter: grayscale(1) invert(0.92) contrast(0.92) brightness(0.95);
+}
+
+/* ------------------------------------------------------------------ */
+/* Reduced motion: keep the content, drop the choreography             */
+/* ------------------------------------------------------------------ */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-line,
+  .hero-fade,
+  .hero-art {
+    transform: none;
+    opacity: 1;
+    animation: none;
+  }
+  .disc-sheen,
+  .slab-sweep,
+  .eq > span,
+  .marquee-track {
+    animation: none;
+  }
+}
