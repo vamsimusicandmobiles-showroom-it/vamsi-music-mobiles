@@ -54,9 +54,8 @@ export default function Hero() {
               {business.name}
             </p>
             <p className="mt-3 max-w-[30rem] text-[1rem] leading-relaxed text-silver">
-              Smartphones, entertainment, appliances and everyday technology —
-              all under one roof in Sriharipuram.
-            </p>
+              Vamsi Music & Mobiles — smartphones, entertainment and everyday
+              technology, all under one roof in Sriharipuram.
           </div>
 
           <div

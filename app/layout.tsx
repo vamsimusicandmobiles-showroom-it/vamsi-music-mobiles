@@ -22,7 +22,7 @@ const body = Instrument_Sans({
 });
 
 const TITLE =
-  'Vamsi Music & Mobiles | Smartphones, TVs & Electronics in Visakhapatnam';
+  'Vamsi Music & Mobiles | Mobile & Electronics Store in Visakhapatnam';
 const DESCRIPTION =
   'Vamsi Music & Mobiles in Sriharipuram, Visakhapatnam — smartphones, TVs, home appliances, accessories, speakers, earphones and headphones. Ask about EMI, exchange offers, finance options and more.';
 
@@ -38,14 +38,16 @@ export const metadata: Metadata = {
     google: 'xaIqfb6sf6G6rXCo2XC2IRVZXbObfPsBzAkJnRqtuhI',
   },
   applicationName: business.name,
-  ...(siteUrl ? { alternates: { canonical: '/' } } : {}),
+  alternates: {
+  canonical: 'https://vamsi-music-mobiles.vercel.app/',
+  },
   openGraph: {
     type: 'website',
     locale: 'en_IN',
     siteName: business.name,
     title: TITLE,
     description: DESCRIPTION,
-    ...(siteUrl ? { url: '/' } : {}),
+    url: 'https://vamsi-music-mobiles.vercel.app/',
   },
   twitter: {
     card: 'summary_large_image',
@@ -69,6 +71,7 @@ const structuredData = {
   '@context': 'https://schema.org',
   '@type': 'ElectronicsStore',
   name: business.name,
+  alternateName: 'Vamsi Music and Mobiles',
   description: DESCRIPTION,
   telephone: business.phoneTel,
   email: business.email,
