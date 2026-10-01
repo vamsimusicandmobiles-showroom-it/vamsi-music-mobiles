@@ -34,6 +34,9 @@ export const metadata: Metadata = {
   ...(siteUrl ? { metadataBase: new URL(siteUrl) } : {}),
   title: TITLE,
   description: DESCRIPTION,
+    verification: {
+    google: 'xaIqfb6sf6G6rXCo2XC2IRVZXbObfPsBzAkJnRqtuhI',
+  },
   applicationName: business.name,
   ...(siteUrl ? { alternates: { canonical: '/' } } : {}),
   openGraph: {
@@ -84,6 +87,12 @@ const structuredData = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en-IN" className={`${display.variable} ${body.variable}`}>
+      <head>
+        <meta
+          name="google-site-verification"
+          content="xaIqfb6sf6G6rXCo2XC2IRVZXbObfPsBzAkJnRqtuhI"
+        />
+      </head>
       <body>
         <a
           href="#main"
